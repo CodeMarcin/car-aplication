@@ -20,6 +20,12 @@
       "relation": "oneToMany",
       "target": "api::driver.driver",
       "mappedBy": "status"
+    },
+    "cars": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::car.car",
+      "mappedBy": "status"
     }
   }
 }

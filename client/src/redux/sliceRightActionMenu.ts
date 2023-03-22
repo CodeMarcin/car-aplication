@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface ISliceRightActionMenu {
-  type: "AddDriver" | "EditDriver";
+  type: "AddDriver" | "EditDriver" | "AddCar" | "EditCar";
   vissible?: boolean;
   id?: string;
 }
