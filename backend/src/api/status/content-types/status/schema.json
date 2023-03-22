@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "statuses",
+  "info": {
+    "singularName": "status",
+    "pluralName": "statuses",
+    "displayName": "Status"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "statusName": {
+      "type": "string",
+      "required": true
+    },
+    "drivers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::driver.driver",
+      "mappedBy": "status"
+    }
+  }
+}
