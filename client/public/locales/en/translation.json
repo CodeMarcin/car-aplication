@@ -13,5 +13,14 @@
   "LABEL__NAME": "Name",
   "LABEL__SURNAME": "Surname",
   "LABEL__SET_AS_INACCESSIBLE": "Set as Inaccessible",
-  "LABEL__SET_AS_AVAILABLE": "Set as Available"
+  "LABEL__SET_AS_AVAILABLE": "Set as Available",
+  "LABEL__CARS": "Cars",
+  "LABEL__CAR_REGISTRATION": "Car registration",
+  "LABEL__ADD_CAR": "Add Car",
+  "LABEL__REGISTRATION_NUMBER": "Registration number",
+  "LABEL__COUNTER_STATUS": "Counter status",
+  "LABEL__REVIEW": "Review",
+  "LABEL__DELETE_CAR_REGISTRATION_NUMBER": "Delete {{carRegistration}}",
+  "LABEL__CONFIRM_DELETE_CAR_REGISTRATION_NUMBER": "Are you sure delete <b>{{carRegistration}}</b>?",
+  "LABEL__EDIT_CAR": "Edit Car"
 }

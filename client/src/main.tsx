@@ -16,6 +16,7 @@ import MainLayout from "./layouts/MainLayout";
 
 // pages
 import Home from "./pages/Home";
+import PageCarsList from "./pages/PageCarsList";
 import Testing from "./pages/Testing";
 import GraphiQLUI from "./pages/GraphiQLUI";
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<MainLayout />}>
       <Route path="/" index element={<Home />} />
+      <Route path="carsList" element={<PageCarsList />} />
       <Route path="/testing" element={<Testing />} />
       <Route path="/graphiql" element={<GraphiQLUI />} />
     </Route>

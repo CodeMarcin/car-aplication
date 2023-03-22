@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { useMutation, useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 
@@ -8,38 +9,37 @@ import { showRightActionMenu } from "../../../redux/sliceRightActionMenu";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../redux/hooks";
 
-import GET__allDriversPagination from "../../../queries/driver/GET__allDriversPagination";
-import DELETE__driverById from "../../../queries/driver/DELETE__driverById";
+import GET__allCarsPagination from "../../../queries/car/GET__allCarsPagination";
+import DELETE__carById from "../../../queries/car/DELETE__carById";
 
 import Title from "../../parts/Title/Title";
 import Table from "../../parts/Table/Table";
-import Modal from "../../parts/Modal/Modal";
 import ChipStatus from "../../parts/ChipStatus/ChipStatus";
-import LoaderSvg from "../../../assets/svg/LoaderSvg";
 
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import PathSvg from "../../../assets/svg/PathSvg";
+import LoaderSvg from "../../../assets/svg/LoaderSvg";
+import Modal from "../../parts/Modal/Modal";
 
 interface IDeleteModal {
   showModal: boolean;
   id?: string;
-  name?: string;
-  surName?: string;
+  registrationNumber?: string;
 }
 
-function DriversList() {
+function CarsList() {
   const [deleteModal, setDeleteModal] = useState<IDeleteModal>({ showModal: false });
 
-  const { loading, data, refetch } = useQuery(GET__allDriversPagination);
-  const [deleteDriverById, { loading: loadDeleteDriverById }] = useMutation(DELETE__driverById, { notifyOnNetworkStatusChange: true });
+  const { loading, data, refetch } = useQuery(GET__allCarsPagination);
+  const [deleteCarById, { loading: loadDeleteCarById }] = useMutation(DELETE__carById, { notifyOnNetworkStatusChange: true });
 
   const { refetch: refetchAllDriversRedux } = useAppSelector((state) => state.refetch);
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
-  if (refetchAllDriversRedux === "AllDrivers") {
+  if (refetchAllDriversRedux === "AllCars") {
     const handleNeedRefetch = async () => {
       try {
         await refetch();
@@ -51,14 +51,14 @@ function DriversList() {
     handleNeedRefetch();
   }
 
-  const toggleDeleteModal = (id?: string, name?: string, surName?: string) => {
-    if (!deleteModal.showModal) setDeleteModal({ showModal: true, id, name, surName });
+  const toggleDeleteModal = (id?: string, registrationNumber?: string) => {
+    if (!deleteModal.showModal) setDeleteModal({ showModal: true, id, registrationNumber });
     else setDeleteModal({ showModal: false });
   };
 
-  const deleteDriver = async () => {
+  const deleteCar = async () => {
     try {
-      await deleteDriverById({ variables: { id: deleteModal.id! } });
+      await deleteCarById({ variables: { id: deleteModal.id! } });
       toggleDeleteModal();
       await refetch();
       dispatch(showSnackbar({ type: "Success" }));
@@ -70,13 +70,13 @@ function DriversList() {
   return (
     <>
       <div className="flex flex-col w-full">
-        <Title>{t("LABEL__DRIVERS")}</Title>
+        <Title>{t("LABEL__CARS")}</Title>
         {!loading ? (
           data && (
-            <Table thElements={[t("LABEL__NAME_AND_SURNAME"), t("LABEL__STATUS"), t("LABEL__ACTION")]}>
-              {data.drivers?.data.map((el) => (
+            <Table thElements={[t("LABEL__CAR_REGISTRATION"), t("LABEL__STATUS"), t("LABEL__ACTION")]}>
+              {data.cars?.data.map((el) => (
                 <Table.Row key={el.id}>
-                  <Table.Item content={`${el.attributes?.name} ${el.attributes?.surname}`} />
+                  <Table.Item content={el.attributes?.registrationNumber} />
                   <Table.Item content={<ChipStatus status={el.attributes?.status?.data?.attributes?.statusName as TStatus} />} />
                   <Table.Item
                     center
@@ -84,12 +84,12 @@ function DriversList() {
                       <div className="flex justify-center gap-x-4">
                         <PathSvg className="hover:text-secondary cursor-pointer" />
                         <ModeEditOutlineOutlinedIcon
-                          className="hover:text-secondary cursor-pointer"
-                          onClick={() => dispatch(showRightActionMenu({ type: "EditDriver", id: el.id! }))}
-                        />
+                        className="hover:text-secondary cursor-pointer"
+                        onClick={() => dispatch(showRightActionMenu({ type: "EditCar", id: el.id! }))}
+                      />
                         <DeleteOutlineOutlinedIcon
                           className="hover:text-error cursor-pointer"
-                          onClick={() => toggleDeleteModal(el.id!, el.attributes?.name, el.attributes?.surname)}
+                          onClick={() => toggleDeleteModal(el.id!, el.attributes?.registrationNumber)}
                         />
                       </div>
                     }
@@ -106,13 +106,17 @@ function DriversList() {
         <Modal
           action="delete"
           type="confirm"
-          loading={loadDeleteDriverById}
-          title={t("LABEL__DELETE_NAME_SURNAME", { name: deleteModal.name, surName: deleteModal.surName })}
+          loading={loadDeleteCarById || loading}
+          title={t("LABEL__DELETE_CAR_REGISTRATION_NUMBER", { carRegistration: deleteModal.registrationNumber })}
           handleClose={toggleDeleteModal}
-          handleApproveAction={deleteDriver}
+          handleApproveAction={deleteCar}
         >
           <Modal.Content>
-            <p dangerouslySetInnerHTML={{ __html: t("LABEL__CONFIRM_DELETE_NAME_SURNAME", { name: deleteModal.name, surName: deleteModal.surName }) }}></p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: t("LABEL__CONFIRM_DELETE_CAR_REGISTRATION_NUMBER", { carRegistration: deleteModal.registrationNumber }),
+              }}
+            ></p>
           </Modal.Content>
         </Modal>
       )}
@@ -120,4 +124,4 @@ function DriversList() {
   );
 }
 
-export default DriversList;
+export default CarsList;

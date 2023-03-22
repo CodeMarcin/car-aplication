@@ -7,9 +7,12 @@ import { useDispatch } from "react-redux";
 
 import { closeRightMenuAction } from "../../../redux/sliceRightActionMenu";
 
-import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import AddDriverForm from "../../complex/AddDriverForm/AddDriverForm";
 import EditDriverForm from "../../complex/EditDriverForm/EditDriverForm";
+import AddCarForm from "../../complex/AddCarForm/AddCarForm";
+import EditCarForm from "../../complex/EditCarForm/EditCarForm";
+
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 
 function RightActionMenu() {
   const { vissible, type, id } = useAppSelector((state) => state.rightMenuAction);
@@ -46,7 +49,17 @@ function RightActionMenu() {
       >
         <div className="w-full h-full relative px-6 py-16 flex flex-col">
           <ClearOutlinedIcon className="absolute right-4 top-4 w-12 h-12 cursor-pointer hover:text-secondary" onClick={() => dispatch(closeRightMenuAction())} />
-          {type === "AddDriver" ? <AddDriverForm /> : type === "EditDriver" ? <EditDriverForm id={id!} /> : " "}
+          {type === "AddDriver" ? (
+            <AddDriverForm />
+          ) : type === "EditDriver" ? (
+            <EditDriverForm id={id!} />
+          ) : type === "AddCar" ? (
+            <AddCarForm />
+          ) : type === "EditCar" ? (
+            <EditCarForm id={id!} />
+          ) : (
+            " "
+          )}
         </div>
       </Transition>
     </>,
