@@ -1,0 +1,17 @@
+{
+  "LABEL__DRIVERS": "Drivers",
+  "LABEL__NAME_AND_SURNAME": "Name and surname",
+  "LABEL__STATUS": "Status",
+  "LABEL__ACTION": "Action",
+  "LABEL__YES": "Yes",
+  "LABEL__NO": "No",
+  "LABEL__DELETE_NAME_SURNAME": "Delete {{name}} {{surName}}",
+  "LABEL__CONFIRM_DELETE_NAME_SURNAME": "Are you sure delete <b>{{name}} {{surName}}</b>?",
+  "LABEL__ADD_DRIVER": "Add Driver",
+  "LABEL__EDIT_DRIVER": "Edit Driver",
+  "LABEL__REQUIRED": "Required",
+  "LABEL__NAME": "Name",
+  "LABEL__SURNAME": "Surname",
+  "LABEL__SET_AS_INACCESSIBLE": "Set as Inaccessible",
+  "LABEL__SET_AS_AVAILABLE": "Set as Available"
+}
