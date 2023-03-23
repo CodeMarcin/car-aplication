@@ -1,14 +1,13 @@
 import { Outlet } from "react-router-dom";
 
-import { useAppSelector } from "../redux/hooks";
-
 import Snackbar from "../components/parts/Snackbar/Snackbar";
 import RightActionMenu from "../components/parts/RightActionMenu/RightActionMenu";
+import MainMenu from "../components/complex/MainMenu/MainMenu";
 
 function MainLayout() {
-  const { vissible: snackbarVissible } = useAppSelector((state) => state.snackbar);
   return (
     <>
+      <MainMenu />
       <Outlet />
       <Snackbar />
       <RightActionMenu />

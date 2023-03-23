@@ -33,7 +33,7 @@ function RightActionMenu() {
   return createPortal(
     <>
       {vissible && (
-        <div className="absolute top-0 w-full h-full backdrop-blur-sm flex items-center justify-center" onClick={() => dispatch(closeRightMenuAction())}></div>
+        <div className="absolute top-0 z-40 w-full h-full backdrop-blur-sm flex items-center justify-center" onClick={() => dispatch(closeRightMenuAction())}></div>
       )}
       <Transition
         appear={true}
@@ -45,7 +45,7 @@ function RightActionMenu() {
         leaveFrom="opacity-100 right-0"
         leaveTo="opacity-0 -right-full"
         as="div"
-        className="absolute ring-r-1 min-w-[300px] sm:min-w-[400px] ring-2 ring-primary z-20 top-0 flex flex-col bg-white h-full shadow-2xl"
+        className="absolute min-w-[300px] sm:min-w-[400px] border-l-2 border-primary top-0 z-50 flex flex-col bg-white h-full shadow-2xl"
       >
         <div className="w-full h-full relative px-6 py-16 flex flex-col">
           <ClearOutlinedIcon className="absolute right-4 top-4 w-12 h-12 cursor-pointer hover:text-secondary" onClick={() => dispatch(closeRightMenuAction())} />

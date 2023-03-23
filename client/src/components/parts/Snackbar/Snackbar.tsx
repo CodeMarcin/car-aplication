@@ -21,7 +21,7 @@ function Snackbar() {
   };
 
   const generateClassName = () => {
-    let className = "fixed left-5 flex shadow-2xl z-30 rounded-md w-fit p-2 text-sm items-center gap-x-2 font-medium text-white whitespace-nowrap ";
+    let className = "fixed left-5 flex shadow-2xl z-50 rounded-md w-fit p-2 text-sm items-center gap-x-2 font-medium text-white whitespace-nowrap ";
     switch (type) {
       case "Success":
         className += "bg-success";

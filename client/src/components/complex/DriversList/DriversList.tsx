@@ -70,7 +70,6 @@ function DriversList() {
   return (
     <>
       <div className="flex flex-col w-full">
-        <Title>{t("LABEL__DRIVERS")}</Title>
         {!loading ? (
           data && (
             <Table thElements={[t("LABEL__NAME_AND_SURNAME"), t("LABEL__STATUS"), t("LABEL__ACTION")]}>

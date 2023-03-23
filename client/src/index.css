@@ -9,7 +9,7 @@
   }
 
   body {
-    overflow: hidden;
+    overflow-x: hidden;
   }
 
   .input-container {
@@ -17,11 +17,11 @@
   }
 
   .input-container__label {
-    @apply font-medium text-sm flex flex-col gap-y-2;
+    @apply flex flex-col gap-y-2 text-sm font-medium;
   }
 
   .input-container__field {
-    @apply ring-1 text-base ring-secondary rounded-sm px-4 py-1;
+    @apply rounded-sm px-4 py-1 text-base ring-1 ring-secondary;
   }
 
   .input-container__error-message {

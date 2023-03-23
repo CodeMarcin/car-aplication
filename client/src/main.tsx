@@ -16,6 +16,7 @@ import MainLayout from "./layouts/MainLayout";
 
 // pages
 import Home from "./pages/Home";
+import PageDriversList from "./pages/PageDriversList";
 import PageCarsList from "./pages/PageCarsList";
 import PageRoutesList from "./pages/PageRoutesList";
 import Testing from "./pages/Testing";
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<MainLayout />}>
       <Route path="/" index element={<Home />} />
+      <Route path="drivers" element={<PageDriversList />} />
       <Route path="cars" element={<PageCarsList />} />
       <Route path="routes" element={<PageRoutesList />} />
       <Route path="/testing" element={<Testing />} />

@@ -3,7 +3,7 @@ interface IHeaderProps {
 }
 function Header({ text }: IHeaderProps) {
   return (
-    <div className="relative py-16 flex w-full justify-center  items-center font-extralight text-7xl decoration-4 sm:text-8xl uppercase border-b-2 border-secondaryDark shadow-md">
+    <div className="flex w-full items-center sm:mt-[42px] justify-center border-b-2 border-secondaryDark py-8 sm:py-16 text-7xl font-extralight uppercase decoration-4 shadow-md sm:text-8xl">
       {text}
     </div>
   );
