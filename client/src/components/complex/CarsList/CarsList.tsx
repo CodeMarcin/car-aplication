@@ -12,7 +12,6 @@ import { useAppSelector } from "../../../redux/hooks";
 import GET__allCarsPagination from "../../../queries/car/GET__allCarsPagination";
 import DELETE__carById from "../../../queries/car/DELETE__carById";
 
-import Title from "../../parts/Title/Title";
 import Table from "../../parts/Table/Table";
 import ChipStatus from "../../parts/ChipStatus/ChipStatus";
 
@@ -70,7 +69,6 @@ function CarsList() {
   return (
     <>
       <div className="flex flex-col w-full">
-        <Title>{t("LABEL__CARS")}</Title>
         {!loading ? (
           data && (
             <Table thElements={[t("LABEL__CAR_REGISTRATION"), t("LABEL__STATUS"), t("LABEL__ACTION")]}>

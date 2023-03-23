@@ -1,5 +1,5 @@
 interface ITableProps {
-  thElements: string[];
+  thElements: string[] | React.ReactNode[];
   children: React.ReactNode;
 }
 
@@ -9,9 +9,9 @@ interface ITableItemProps {
 }
 
 export const TableRow = ({ children }: ISlotBasic) => (
-  <tr className="rounded-md ring-neutral-50 ring-1 shadow-md px-4 py-2 hover:-translate-y-1 transition-all duration-500">{children}</tr>
+  <tr className="px-4 py-2 hover:-translate-y-1 transition-all duration-500">{children}</tr>
 );
-export const TableItem = ({ content, center = false }: ITableItemProps) => <td className={`py-4 pl-2 ${center ? "text-center" : " "}`}>{content}</td>;
+export const TableItem = ({ content, center = false }: ITableItemProps) => <td className={`py-4 border-b pl-2 ${center ? "text-center" : " "}`}>{content}</td>;
 
 function Table({ thElements, children }: ITableProps) {
   return (
