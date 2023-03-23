@@ -29,6 +29,12 @@
       "relation": "manyToOne",
       "target": "api::status.status",
       "inversedBy": "cars"
+    },
+    "route": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::route.route",
+      "mappedBy": "car"
     }
   }
 }

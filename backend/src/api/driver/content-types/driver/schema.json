@@ -25,6 +25,12 @@
       "relation": "manyToOne",
       "target": "api::status.status",
       "inversedBy": "drivers"
+    },
+    "route": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::route.route",
+      "mappedBy": "driver"
     }
   }
 }

@@ -25,6 +25,8 @@ const documents = {
     "\n  mutation CreateDriver($name: String, $surname: String, $status: ID) {\n    createDriver(data: { name: $name, surname: $surname, status: $status }) {\n      data {\n        id\n      }\n    }\n  }\n": types.CreateDriverDocument,
     "\n  mutation UpdateDriverProfile($id: ID!, $name: String, $surname: String) {\n    updateDriver(data: { name: $name, surname: $surname }, id: $id) {\n      data {\n        id\n      }\n    }\n  }\n": types.UpdateDriverProfileDocument,
     "\n  mutation UpdateDriverStatus($id: ID!, $status: ID) {\n    updateDriver(data: { status: $status }, id: $id) {\n      data {\n        id\n      }\n    }\n  }\n": types.UpdateDriverStatusDocument,
+    "\n  mutation DeleteRoutById($id: ID!) {\n    deleteRoute(id: $id) {\n      data {\n        id\n      }\n    }\n  }\n": types.DeleteRoutByIdDocument,
+    "\n  query AllRoutes {\n    routes(sort: \"id:DESC\") {\n      data {\n        attributes {\n          destination\n          distance\n          endDate\n          car {\n            data {\n              attributes {\n                registrationNumber\n              }\n            }\n          }\n          driver {\n            data {\n              attributes {\n                name\n                surname\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n": types.AllRoutesDocument,
     "\n  query StatusByName($statusName: String) {\n    statuses(filters: { statusName: { eq: $statusName } }) {\n      data {\n        id\n        attributes {\n          statusName\n        }\n      }\n    }\n  }\n": types.StatusByNameDocument,
     "\n  query AllStatus {\n    statuses {\n      data {\n        attributes {\n          statusName\n        }\n      }\n    }\n  }\n": types.AllStatusDocument,
 };
@@ -91,6 +93,14 @@ export function graphql(source: "\n  mutation UpdateDriverProfile($id: ID!, $nam
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation UpdateDriverStatus($id: ID!, $status: ID) {\n    updateDriver(data: { status: $status }, id: $id) {\n      data {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateDriverStatus($id: ID!, $status: ID) {\n    updateDriver(data: { status: $status }, id: $id) {\n      data {\n        id\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteRoutById($id: ID!) {\n    deleteRoute(id: $id) {\n      data {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteRoutById($id: ID!) {\n    deleteRoute(id: $id) {\n      data {\n        id\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query AllRoutes {\n    routes(sort: \"id:DESC\") {\n      data {\n        attributes {\n          destination\n          distance\n          endDate\n          car {\n            data {\n              attributes {\n                registrationNumber\n              }\n            }\n          }\n          driver {\n            data {\n              attributes {\n                name\n                surname\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  query AllRoutes {\n    routes(sort: \"id:DESC\") {\n      data {\n        attributes {\n          destination\n          distance\n          endDate\n          car {\n            data {\n              attributes {\n                registrationNumber\n              }\n            }\n          }\n          driver {\n            data {\n              attributes {\n                name\n                surname\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

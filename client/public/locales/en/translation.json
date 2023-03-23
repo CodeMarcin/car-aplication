@@ -22,5 +22,8 @@
   "LABEL__REVIEW": "Review",
   "LABEL__DELETE_CAR_REGISTRATION_NUMBER": "Delete {{carRegistration}}",
   "LABEL__CONFIRM_DELETE_CAR_REGISTRATION_NUMBER": "Are you sure delete <b>{{carRegistration}}</b>?",
-  "LABEL__EDIT_CAR": "Edit Car"
+  "LABEL__EDIT_CAR": "Edit Car",
+  "LABEL__ROUTES": "Routes",
+  "LABEL__DRIVER_CAR": "Driver & Car",
+  "LABEL__DESTINATION": "Destination"
 }
