@@ -66,7 +66,7 @@ function Modal({ title, children, handleClose, action, type = "custom", handleAp
 
   return createPortal(
     <>
-      <div className="absolute top-0 w-full h-full backdrop-blur-sm flex items-center justify-center">
+      <div className="absolute top-0 w-full h-full backdrop-blur-sm flex items-center justify-center z-50">
         <div className="flex flex-col min-w-[350px] max-w-lg gap-y-5 bg-white shadow-2xl p-4 rounded-md relative ring-1 mx-4 ring-neutral-50">
           <ClearOutlinedIcon className="absolute right-4 top-4 w-12 h-12 cursor-pointer hover:text-secondary" onClick={handleClose} />
           {generateTitle()}

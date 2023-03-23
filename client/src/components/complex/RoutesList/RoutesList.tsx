@@ -43,12 +43,12 @@ function RoutesList() {
     <div className="flex flex-col w-full">
       {!loading ? (
         data && (
-          <Table thElements={[t("LABEL__DRIVER_CAR"), <DoubleArrowOutlinedIcon />, t("LABEL__DESTINATION"), t("LABEL__ACTION"), ""]}>
+          <Table thElements={[t("LABEL__DRIVER_CAR"), t("LABEL__DESTINATION"), t("LABEL__ACTION"), ""]}>
             {data.routes?.data.map((el) => (
               <Table.Row key={el.id}>
                 <Table.Item content={`${el.attributes?.driver?.data?.attributes?.name} ${el.attributes?.car?.data?.attributes?.registrationNumber}`} />
                 {/* <Table.Item content={"as "}> */}
-                <Table.Item content={" "} />
+
                 <Table.Item content={el.attributes?.destination} />
                 <Table.Item
                   content={
@@ -65,7 +65,7 @@ function RoutesList() {
                     </div>
                   }
                 />
-                <Table.Item center content={<ChevronRightOutlinedIcon className="cursor-pointer" />}  />
+                <Table.Item center content={<ChevronRightOutlinedIcon className="cursor-pointer" />} />
               </Table.Row>
             ))}
           </Table>

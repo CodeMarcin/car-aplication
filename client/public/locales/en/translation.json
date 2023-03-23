@@ -25,5 +25,6 @@
   "LABEL__EDIT_CAR": "Edit Car",
   "LABEL__ROUTES": "Routes",
   "LABEL__DRIVER_CAR": "Driver & Car",
-  "LABEL__DESTINATION": "Destination"
+  "LABEL__DESTINATION": "Destination",
+  "LABEL__HOME": "Home"
 }

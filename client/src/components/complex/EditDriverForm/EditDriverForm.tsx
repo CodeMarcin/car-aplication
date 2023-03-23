@@ -54,6 +54,7 @@ function EditDriverForm({ id }: IEditDriverFormProps) {
       dispatch(showSnackbar({ type: "Success" }));
       dispatch(setRefetch({ refetch: "AllDrivers" }));
       await refetch();
+      dispatch(closeRightMenuAction());
     } catch (err) {
       console.error(err);
     }
@@ -75,7 +76,7 @@ function EditDriverForm({ id }: IEditDriverFormProps) {
   return (
     <div className="flex flex-col gap-y-4">
       <Title>{t("LABEL__EDIT_DRIVER")}</Title>
-      <div className="flex justify-center w-full">
+      <div className="flex w-full justify-center">
         <EditPeopleSvg width="225px" height="225px" />
       </div>
       <div className="flex flex-col">
@@ -96,7 +97,7 @@ function EditDriverForm({ id }: IEditDriverFormProps) {
                   <ErrorMessage component="p" name={el.name} className="input-container__error-message" />
                 </div>
               ))}
-              <div className="flex flex-col gap-y-4 items-center justify-center">
+              <div className="flex flex-col items-center justify-center gap-y-4">
                 <Button type="submit" variant="fulfilled" color="secondary">
                   {t("LABEL__EDIT_DRIVER")}
                 </Button>
