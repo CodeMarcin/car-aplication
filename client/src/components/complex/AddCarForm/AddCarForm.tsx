@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next";
 
 import { useMutation } from "@apollo/client";
 import POST__createCar from "../../../queries/car/POST__createCar";
+import GET__allCarsPagination from "../../../queries/car/GET__allCarsPagination";
 
 import { useDispatch } from "react-redux";
 import { showSnackbar } from "../../../redux/sliceSnackbar";
 import { closeRightMenuAction } from "../../../redux/sliceRightActionMenu";
-import { setRefetch } from "../../../redux/sliceRefetch";
 
 import Title from "../../parts/Title/Title";
 import AddCarSvg from "../../../assets/svg/AddCarSvg";
@@ -22,7 +22,7 @@ const initialValues = {
 };
 
 function AddCarForm() {
-  const [createCar, { loading }] = useMutation(POST__createCar);
+  const [createCar, { loading }] = useMutation(POST__createCar, { refetchQueries: [{ query: GET__allCarsPagination }] });
 
   const dispatch = useDispatch();
 
@@ -47,7 +47,6 @@ function AddCarForm() {
       const { registrationNumber, counterStatus, review } = values;
       const data = await createCar({ variables: { registrationNumber, counterStatus, review, status: "1" } });
       if (data) {
-        dispatch(setRefetch({ refetch: "AllCars" }));
         dispatch(showSnackbar({ type: "Success" }));
         dispatch(closeRightMenuAction());
       }
@@ -59,7 +58,7 @@ function AddCarForm() {
   return (
     <div className="flex flex-col gap-y-4">
       <Title>{t("LABEL__ADD_CAR")}</Title>
-      <div className="flex justify-center w-full">
+      <div className="flex w-full justify-center">
         <AddCarSvg width="225px" height="225px" />
       </div>
       <div className="flex flex-col">

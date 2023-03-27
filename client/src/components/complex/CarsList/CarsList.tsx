@@ -1,16 +1,15 @@
 import { useState } from "react";
 
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 
+import { useDelete } from "../../../hooks/useDelete";
+
 import { showSnackbar } from "../../../redux/sliceSnackbar";
-import { resetRefetch } from "../../../redux/sliceRefetch";
 import { showRightActionMenu } from "../../../redux/sliceRightActionMenu";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../../redux/hooks";
 
 import GET__allCarsPagination from "../../../queries/car/GET__allCarsPagination";
-import DELETE__carById from "../../../queries/car/DELETE__carById";
 
 import Table from "../../parts/Table/Table";
 import ChipStatus from "../../parts/ChipStatus/ChipStatus";
@@ -23,7 +22,8 @@ import Modal from "../../parts/Modal/Modal";
 
 interface IDeleteModal {
   showModal: boolean;
-  id?: string;
+  idCar?: string;
+  idRoute?: string;
   registrationNumber?: string;
 }
 
@@ -31,35 +31,22 @@ function CarsList() {
   const [deleteModal, setDeleteModal] = useState<IDeleteModal>({ showModal: false });
 
   const { loading, data, refetch } = useQuery(GET__allCarsPagination);
-  const [deleteCarById, { loading: loadDeleteCarById }] = useMutation(DELETE__carById, { notifyOnNetworkStatusChange: true });
 
-  const { refetch: refetchAllDriversRedux } = useAppSelector((state) => state.refetch);
   const dispatch = useDispatch();
+
+  const { loading: loadingDelete, callDelete } = useDelete();
 
   const { t } = useTranslation();
 
-  if (refetchAllDriversRedux === "AllCars") {
-    const handleNeedRefetch = async () => {
-      try {
-        await refetch();
-        dispatch(resetRefetch());
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    handleNeedRefetch();
-  }
-
-  const toggleDeleteModal = (id?: string, registrationNumber?: string) => {
-    if (!deleteModal.showModal) setDeleteModal({ showModal: true, id, registrationNumber });
+  const toggleDeleteModal = (idCar?: string, idRoute?:string, registrationNumber?: string) => {
+    if (!deleteModal.showModal) setDeleteModal({ showModal: true, idCar, idRoute, registrationNumber });
     else setDeleteModal({ showModal: false });
   };
 
-  const deleteCar = async () => {
+  const handleDeleteCar = async () => {
     try {
-      await deleteCarById({ variables: { id: deleteModal.id! } });
+      await callDelete({ idCar: deleteModal.idCar, idRoute: deleteModal.idRoute });
       toggleDeleteModal();
-      await refetch();
       dispatch(showSnackbar({ type: "Success" }));
     } catch (err) {
       console.error(err);
@@ -68,7 +55,7 @@ function CarsList() {
 
   return (
     <>
-      <div className="flex flex-col w-full">
+      <div className="flex w-full flex-col">
         {!loading ? (
           data && (
             <Table thElements={[t("LABEL__CAR_REGISTRATION"), t("LABEL__STATUS"), t("LABEL__ACTION")]}>
@@ -80,14 +67,14 @@ function CarsList() {
                     center
                     content={
                       <div className="flex justify-center gap-x-4">
-                        <PathSvg className="hover:text-secondary cursor-pointer" />
+                        <PathSvg className="cursor-pointer hover:text-secondary" />
                         <ModeEditOutlineOutlinedIcon
-                        className="hover:text-secondary cursor-pointer"
-                        onClick={() => dispatch(showRightActionMenu({ type: "EditCar", id: el.id! }))}
-                      />
+                          className="cursor-pointer hover:text-secondary"
+                          onClick={() => dispatch(showRightActionMenu({ type: "EditCar", id: el.id! }))}
+                        />
                         <DeleteOutlineOutlinedIcon
-                          className="hover:text-error cursor-pointer"
-                          onClick={() => toggleDeleteModal(el.id!, el.attributes?.registrationNumber)}
+                          className="cursor-pointer hover:text-error"
+                          onClick={() => toggleDeleteModal(el.id!, el.attributes?.route?.data?.id!, el.attributes?.registrationNumber)}
                         />
                       </div>
                     }
@@ -104,10 +91,10 @@ function CarsList() {
         <Modal
           action="delete"
           type="confirm"
-          loading={loadDeleteCarById || loading}
+          loading={loadingDelete}
           title={t("LABEL__DELETE_CAR_REGISTRATION_NUMBER", { carRegistration: deleteModal.registrationNumber })}
           handleClose={toggleDeleteModal}
-          handleApproveAction={deleteCar}
+          handleApproveAction={handleDeleteCar}
         >
           <Modal.Content>
             <p

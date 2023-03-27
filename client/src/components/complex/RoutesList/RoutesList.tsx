@@ -38,6 +38,18 @@ function RoutesList() {
   const { refetch: refetchAllRoutesRedux } = useAppSelector((state) => state.refetch);
   const dispatch = useDispatch();
 
+   if (refetchAllRoutesRedux === "AllRoutes") {
+     const handleNeedRefetch = async () => {
+       try {
+         await refetch();
+         dispatch(resetRefetch());
+       } catch (err) {
+         console.error(err);
+       }
+     };
+     handleNeedRefetch();
+   }
+
   const { t } = useTranslation();
   return (
     <div className="flex flex-col w-full">

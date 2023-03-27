@@ -11,6 +11,7 @@ import AddDriverForm from "../../complex/AddDriverForm/AddDriverForm";
 import EditDriverForm from "../../complex/EditDriverForm/EditDriverForm";
 import AddCarForm from "../../complex/AddCarForm/AddCarForm";
 import EditCarForm from "../../complex/EditCarForm/EditCarForm";
+import AddRouteForm from "../../complex/AddRouteForm/AddRouteForm";
 
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 
@@ -33,7 +34,7 @@ function RightActionMenu() {
   return createPortal(
     <>
       {vissible && (
-        <div className="absolute top-0 z-40 w-full h-full backdrop-blur-sm flex items-center justify-center" onClick={() => dispatch(closeRightMenuAction())}></div>
+        <div className="fixed top-0 z-50 flex h-screen w-full items-center justify-center backdrop-blur-sm" onClick={() => dispatch(closeRightMenuAction())}></div>
       )}
       <Transition
         appear={true}
@@ -45,10 +46,10 @@ function RightActionMenu() {
         leaveFrom="opacity-100 right-0"
         leaveTo="opacity-0 -right-full"
         as="div"
-        className="absolute min-w-[300px] sm:min-w-[400px] border-l-2 border-primary top-0 z-50 flex flex-col bg-white h-full shadow-2xl"
+        className="fixed top-0 z-50 flex h-screen min-w-[300px] flex-col border-l-2 border-primary bg-white shadow-2xl sm:min-w-[400px] overflow-y-scroll"
       >
-        <div className="w-full h-full relative px-6 py-16 flex flex-col">
-          <ClearOutlinedIcon className="absolute right-4 top-4 w-12 h-12 cursor-pointer hover:text-secondary" onClick={() => dispatch(closeRightMenuAction())} />
+        <div className="relative flex h-full w-full flex-col px-6 py-16">
+          <ClearOutlinedIcon className="absolute right-4 top-4 h-12 w-12 cursor-pointer hover:text-secondary" onClick={() => dispatch(closeRightMenuAction())} />
           {type === "AddDriver" ? (
             <AddDriverForm />
           ) : type === "EditDriver" ? (
@@ -57,6 +58,8 @@ function RightActionMenu() {
             <AddCarForm />
           ) : type === "EditCar" ? (
             <EditCarForm id={id!} />
+          ) : type === "AddRoute" ? (
+            <AddRouteForm />
           ) : (
             " "
           )}

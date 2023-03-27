@@ -15,6 +15,11 @@ const GET__allDriversPagination = graphql(`
               }
             }
           }
+          route {
+            data {
+              id
+            }
+          }
         }
       }
     }

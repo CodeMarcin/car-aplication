@@ -4,6 +4,7 @@ const GET__allCarsPagination = graphql(`
   query AllCars {
     cars(sort: "id:DESC") {
       data {
+        id
         attributes {
           registrationNumber
           status {
@@ -13,8 +14,12 @@ const GET__allCarsPagination = graphql(`
               }
             }
           }
+          route {
+            data {
+              id
+            }
+          }
         }
-        id
       }
     }
   }

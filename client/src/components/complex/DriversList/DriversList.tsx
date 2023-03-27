@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+
+import { useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 
+import { useDelete } from "../../../hooks/useDelete";
+
 import { showSnackbar } from "../../../redux/sliceSnackbar";
-import { resetRefetch } from "../../../redux/sliceRefetch";
+
 import { showRightActionMenu } from "../../../redux/sliceRightActionMenu";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../redux/hooks";
 
 import GET__allDriversPagination from "../../../queries/driver/GET__allDriversPagination";
-import DELETE__driverById from "../../../queries/driver/DELETE__driverById";
 
-import Title from "../../parts/Title/Title";
 import Table from "../../parts/Table/Table";
 import Modal from "../../parts/Modal/Modal";
 import ChipStatus from "../../parts/ChipStatus/ChipStatus";
@@ -23,7 +24,8 @@ import PathSvg from "../../../assets/svg/PathSvg";
 
 interface IDeleteModal {
   showModal: boolean;
-  id?: string;
+  idDriver?: string;
+  idRoute?: string;
   name?: string;
   surName?: string;
 }
@@ -31,36 +33,23 @@ interface IDeleteModal {
 function DriversList() {
   const [deleteModal, setDeleteModal] = useState<IDeleteModal>({ showModal: false });
 
-  const { loading, data, refetch } = useQuery(GET__allDriversPagination);
-  const [deleteDriverById, { loading: loadDeleteDriverById }] = useMutation(DELETE__driverById, { notifyOnNetworkStatusChange: true });
+  const { loading, data } = useQuery(GET__allDriversPagination);
 
-  const { refetch: refetchAllDriversRedux } = useAppSelector((state) => state.refetch);
   const dispatch = useDispatch();
+
+  const { loading: loadingDelete, callDelete } = useDelete();
 
   const { t } = useTranslation();
 
-  if (refetchAllDriversRedux === "AllDrivers") {
-    const handleNeedRefetch = async () => {
-      try {
-        await refetch();
-        dispatch(resetRefetch());
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    handleNeedRefetch();
-  }
-
-  const toggleDeleteModal = (id?: string, name?: string, surName?: string) => {
-    if (!deleteModal.showModal) setDeleteModal({ showModal: true, id, name, surName });
+  const toggleDeleteModal = (idDriver?: string, idRoute?: string, name?: string, surName?: string) => {
+    if (!deleteModal.showModal) setDeleteModal({ showModal: true, idDriver, idRoute, name, surName });
     else setDeleteModal({ showModal: false });
   };
 
-  const deleteDriver = async () => {
+  const handleDeleteDriver = async () => {
     try {
-      await deleteDriverById({ variables: { id: deleteModal.id! } });
+      await callDelete({ idDriver: deleteModal.idDriver, idRoute: deleteModal.idRoute });
       toggleDeleteModal();
-      await refetch();
       dispatch(showSnackbar({ type: "Success" }));
     } catch (err) {
       console.error(err);
@@ -69,7 +58,7 @@ function DriversList() {
 
   return (
     <>
-      <div className="flex flex-col w-full">
+      <div className="flex w-full flex-col">
         {!loading ? (
           data && (
             <Table thElements={[t("LABEL__NAME_AND_SURNAME"), t("LABEL__STATUS"), t("LABEL__ACTION")]}>
@@ -81,14 +70,14 @@ function DriversList() {
                     center
                     content={
                       <div className="flex justify-center gap-x-4">
-                        <PathSvg className="hover:text-secondary cursor-pointer" />
+                        <PathSvg className="cursor-pointer hover:text-secondary" />
                         <ModeEditOutlineOutlinedIcon
-                          className="hover:text-secondary cursor-pointer"
+                          className="cursor-pointer hover:text-secondary"
                           onClick={() => dispatch(showRightActionMenu({ type: "EditDriver", id: el.id! }))}
                         />
                         <DeleteOutlineOutlinedIcon
-                          className="hover:text-error cursor-pointer"
-                          onClick={() => toggleDeleteModal(el.id!, el.attributes?.name, el.attributes?.surname)}
+                          className="cursor-pointer hover:text-error"
+                          onClick={() => toggleDeleteModal(el.id!, el.attributes?.route?.data?.id!, el.attributes?.name, el.attributes?.surname)}
                         />
                       </div>
                     }
@@ -105,10 +94,10 @@ function DriversList() {
         <Modal
           action="delete"
           type="confirm"
-          loading={loadDeleteDriverById}
+          loading={loadingDelete}
           title={t("LABEL__DELETE_NAME_SURNAME", { name: deleteModal.name, surName: deleteModal.surName })}
           handleClose={toggleDeleteModal}
-          handleApproveAction={deleteDriver}
+          handleApproveAction={handleDeleteDriver}
         >
           <Modal.Content>
             <p dangerouslySetInnerHTML={{ __html: t("LABEL__CONFIRM_DELETE_NAME_SURNAME", { name: deleteModal.name, surName: deleteModal.surName }) }}></p>
