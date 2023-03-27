@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export type TRefetch = "AllDrivers" | "AllCars";
+export type TRefetch = "AllDrivers" | "AllCars" | "AllRoutes";
 
 export interface ISliceRightActionMenu {
   refetch: boolean | TRefetch;

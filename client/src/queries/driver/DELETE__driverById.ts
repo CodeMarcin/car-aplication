@@ -1,8 +1,8 @@
 import { graphql } from "../../gql";
 
 const DELETE__driverById = graphql(`
-  mutation DeleteDriverById($id: ID!) {
-    deleteDriver(id: $id) {
+  mutation DeleteDriverById($idDriver: ID!) {
+    deleteDriver(id: $idDriver) {
       data {
         id
       }

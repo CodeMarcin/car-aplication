@@ -1,8 +1,8 @@
 import { graphql } from "../../gql";
 
 const DELETE__routeById = graphql(`
-  mutation DeleteRoutById($id: ID!) {
-    deleteRoute(id: $id) {
+  mutation DeleteRoutById($idRoute: ID!) {
+    deleteRoute(id: $idRoute) {
       data {
         id
       }

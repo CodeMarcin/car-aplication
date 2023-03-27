@@ -1,4 +1,5 @@
 {
+  "LABEL__DRIVER": "Driver",
   "LABEL__DRIVERS": "Drivers",
   "LABEL__NAME_AND_SURNAME": "Name and surname",
   "LABEL__STATUS": "Status",
@@ -14,6 +15,7 @@
   "LABEL__SURNAME": "Surname",
   "LABEL__SET_AS_INACCESSIBLE": "Set as Inaccessible",
   "LABEL__SET_AS_AVAILABLE": "Set as Available",
+  "LABEL__CAR": "Car",
   "LABEL__CARS": "Cars",
   "LABEL__CAR_REGISTRATION": "Car registration",
   "LABEL__ADD_CAR": "Add Car",
@@ -24,7 +26,11 @@
   "LABEL__CONFIRM_DELETE_CAR_REGISTRATION_NUMBER": "Are you sure delete <b>{{carRegistration}}</b>?",
   "LABEL__EDIT_CAR": "Edit Car",
   "LABEL__ROUTES": "Routes",
+  "LABEL__ADD_ROUTE": "Add Route",
   "LABEL__DRIVER_CAR": "Driver & Car",
   "LABEL__DESTINATION": "Destination",
+  "LABEL__DISTANCE": "Distance",
+  "LABEL__START_DATE": "Start date",
+  "LABEL__END_DATE": "End date",
   "LABEL__HOME": "Home"
 }

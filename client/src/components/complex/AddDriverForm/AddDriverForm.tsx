@@ -4,11 +4,12 @@ import { useTranslation } from "react-i18next";
 
 import { useMutation } from "@apollo/client";
 import POST__createDriver from "../../../queries/driver/POST__createDriver";
+import GET__allDriversPagination from "../../../queries/driver/GET__allDriversPagination";
+
 
 import { useDispatch } from "react-redux";
 import { showSnackbar } from "../../../redux/sliceSnackbar";
 import { closeRightMenuAction } from "../../../redux/sliceRightActionMenu";
-import { setRefetch } from "../../../redux/sliceRefetch";
 
 import Title from "../../parts/Title/Title";
 import AddPeopleSvg from "../../../assets/svg/AddPeopleSvg";
@@ -21,7 +22,7 @@ const initialValues = {
 };
 
 function AddDriverForm() {
-  const [createDriver, { loading }] = useMutation(POST__createDriver);
+  const [createDriver, { loading }] = useMutation(POST__createDriver, { refetchQueries: [{ query: GET__allDriversPagination }] });
 
   const dispatch = useDispatch();
 
@@ -46,7 +47,6 @@ function AddDriverForm() {
       const { name, surname } = values;
       const data = await createDriver({ variables: { name, surname, status: "1" } });
       if (data) {
-        dispatch(setRefetch({ refetch: "AllDrivers" }));
         dispatch(showSnackbar({ type: "Success" }));
         dispatch(closeRightMenuAction());
       }
@@ -58,7 +58,7 @@ function AddDriverForm() {
   return (
     <div className="flex flex-col gap-y-4">
       <Title>{t("LABEL__ADD_DRIVER")}</Title>
-      <div className="flex justify-center w-full">
+      <div className="flex w-full justify-center">
         <AddPeopleSvg width="225px" height="225px" />
       </div>
       <div className="flex flex-col">

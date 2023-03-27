@@ -26,14 +26,16 @@ import "./index.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<MainLayout />}>
-      <Route path="/" index element={<Home />} />
-      <Route path="drivers" element={<PageDriversList />} />
-      <Route path="cars" element={<PageCarsList />} />
-      <Route path="routes" element={<PageRoutesList />} />
-      <Route path="/testing" element={<Testing />} />
+    <>
+      <Route element={<MainLayout />}>
+        <Route path="/" index element={<Home />} />
+        <Route path="drivers" element={<PageDriversList />} />
+        <Route path="cars" element={<PageCarsList />} />
+        <Route path="routes" element={<PageRoutesList />} />
+        <Route path="/testing" element={<Testing />} />
+      </Route>
       <Route path="/graphiql" element={<GraphiQLUI />} />
-    </Route>
+    </>
   )
 );
 
